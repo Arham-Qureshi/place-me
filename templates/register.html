@@ -12,10 +12,20 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Outfit', 'Inter', 'system-ui', 'sans-serif'],
+                    },
                     colors: {
-                        brand: { 50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81' },
-                        surface: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8' },
+                        brand: {
+                            50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7',
+                            400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857',
+                            800: '#065f46', 900: '#064e3b'
+                        },
+                        surface: {
+                            50: '#f8faf9', 100: '#f1f5f3', 200: '#e2e8e4',
+                            300: '#cbd5cf', 400: '#8a9a90'
+                        },
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.6s ease-out forwards',
@@ -32,105 +42,29 @@
         }
     </script>
 
-    <!-- Google Font: Inter -->
+    <!-- Google Fonts: Outfit + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.45);
-        }
-
-        .input-soft {
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
-            transition: all 0.2s ease;
-        }
-
-        .input-soft:focus {
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04), 0 0 0 3px rgba(99, 102, 241, 0.18);
-            border-color: #818cf8;
-        }
-
-        .btn-shine {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-shine::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 40%;
-            height: 200%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
-            transform: skewX(-20deg);
-            transition: left 0.6s ease;
-        }
-
-        .btn-shine:hover::after {
-            left: 120%;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-        }
-
-        /* Tab switching logic */
-        #studentTab:checked~.tab-panels .panel-student {
-            display: block;
-        }
-
-        #studentTab:checked~.tab-panels .panel-company {
-            display: none;
-        }
-
-        #companyTab:checked~.tab-panels .panel-student {
-            display: none;
-        }
-
-        #companyTab:checked~.tab-panels .panel-company {
-            display: block;
-        }
-
-        #studentTab:checked~.tab-nav .label-student {
-            background: white;
-            color: #4f46e5;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        }
-
-        #companyTab:checked~.tab-nav .label-company {
-            background: white;
-            color: #4f46e5;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        }
-    </style>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body class="min-h-screen flex items-center justify-center overflow-hidden relative bg-surface-50 py-8">
 
     <!-- ═══ Background Orbs ═══ -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50"></div>
         <div class="orb w-[500px] h-[500px] bg-brand-200 -top-40 -left-40 animate-float"></div>
-        <div class="orb w-[400px] h-[400px] bg-purple-200 top-1/2 -right-32 animate-float" style="animation-delay:-3s;">
+        <div class="orb w-[400px] h-[400px] bg-teal-200 top-1/2 -right-32 animate-float" style="animation-delay:-3s;">
         </div>
-        <div class="orb w-[300px] h-[300px] bg-sky-200 -bottom-20 left-1/3 animate-float"
+        <div class="orb w-[300px] h-[300px] bg-emerald-200 -bottom-20 left-1/3 animate-float"
             style="animation-delay:-1.5s;"></div>
         <div class="absolute inset-0 opacity-[0.03]"
-            style="background-image: radial-gradient(circle, #6366f1 1px, transparent 1px); background-size: 32px 32px;">
+            style="background-image: radial-gradient(circle, #059669 1px, transparent 1px); background-size: 32px 32px;">
         </div>
     </div>
 
@@ -149,7 +83,7 @@
                         d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422M12 14v7" />
                 </svg>
             </div>
-            <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Create Account</h1>
+            <h1 class="text-2xl font-bold text-gray-900 tracking-tight font-display">Create Account</h1>
             <p class="text-sm text-surface-400 mt-1 font-medium">Join the placement portal</p>
         </div>
 
@@ -165,10 +99,10 @@
             {% if messages %}
             <div class="mb-5 space-y-2">
                 {% for category, message in messages %}
-                <div class="flex items-center gap-2 text-sm px-4 py-3 rounded-xl
+                <div class="flash-message flex items-center gap-2 text-sm px-4 py-3 rounded-xl
                     {% if category == 'danger' %}bg-red-50 text-red-700 border border-red-100
                     {% elif category == 'success' %}bg-emerald-50 text-emerald-700 border border-emerald-100
-                    {% else %}bg-blue-50 text-blue-700 border border-blue-100{% endif %}">
+                    {% else %}bg-teal-50 text-teal-700 border border-teal-100{% endif %}">
                     <span>{{ message }}</span>
                 </div>
                 {% endfor %}
@@ -249,7 +183,7 @@
                                 class="input-soft w-full px-4 py-2.5 rounded-xl border border-surface-200 bg-white/70 text-gray-800 text-sm focus:outline-none">
                         </div>
 
-                        <button type="submit" class="btn-shine w-full py-3 rounded-xl text-sm font-semibold text-white
+                        <button type="submit" class="btn-shine btn-press w-full py-3 rounded-xl text-sm font-semibold text-white
                                        bg-gradient-to-r from-brand-500 to-brand-600
                                        shadow-lg shadow-brand-500/25
                                        hover:shadow-xl hover:shadow-brand-500/30 hover:-translate-y-0.5
@@ -295,7 +229,7 @@
                                 class="input-soft w-full px-4 py-2.5 rounded-xl border border-surface-200 bg-white/70 text-gray-800 text-sm placeholder:text-surface-300 focus:outline-none">
                         </div>
 
-                        <button type="submit" class="btn-shine w-full py-3 rounded-xl text-sm font-semibold text-white
+                        <button type="submit" class="btn-shine btn-press w-full py-3 rounded-xl text-sm font-semibold text-white
                                        bg-gradient-to-r from-brand-500 to-brand-600
                                        shadow-lg shadow-brand-500/25
                                        hover:shadow-xl hover:shadow-brand-500/30 hover:-translate-y-0.5
@@ -315,7 +249,7 @@
             </div>
 
             <!-- Login link -->
-            <a href="{{ url_for('index') }}" class="block w-full text-center py-2.5 rounded-xl text-sm font-semibold text-brand-600
+            <a href="{{ url_for('index') }}" class="btn-press block w-full text-center py-2.5 rounded-xl text-sm font-semibold text-brand-600
                       bg-brand-50 hover:bg-brand-100 border border-brand-100
                       transition-all duration-200 hover:-translate-y-0.5">
                 Sign In Instead

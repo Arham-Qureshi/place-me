@@ -12,48 +12,35 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Outfit', 'Inter', 'system-ui', 'sans-serif'],
+                    },
                     colors: {
-                        brand: { 50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81' },
-                        surface: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8' },
+                        brand: {
+                            50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7',
+                            400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857',
+                            800: '#065f46', 900: '#064e3b'
+                        },
+                        surface: {
+                            50: '#f8faf9', 100: '#f1f5f3', 200: '#e2e8e4',
+                            300: '#cbd5cf', 400: '#8a9a90'
+                        },
                     },
                 }
             }
         }
     </script>
 
-    <!-- Google Font: Inter -->
+    <!-- Google Fonts: Outfit + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
-        }
-
-        .nav-link {
-            transition: color 0.15s ease;
-        }
-
-        .nav-link:hover {
-            color: #4f46e5;
-        }
-
-        .sidebar-link.active {
-            background: #eef2ff;
-            color: #4f46e5;
-            font-weight: 600;
-        }
-    </style>
+    <!-- External CSS (Tech Emerald Theme) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body class="bg-surface-50 min-h-screen flex flex-col text-gray-800">
@@ -61,14 +48,14 @@
     <!-- ═══════════════════════════════════════════════════════
      NAVBAR
      ═══════════════════════════════════════════════════════ -->
-    <nav class="glass-nav sticky top-0 z-50">
+    <nav class="glass-nav sticky top-0 z-50 animate-slide-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Brand -->
                 <a href="{{ url_for('index') }}"
-                    class="flex items-center gap-2 text-brand-600 font-bold text-lg tracking-tight">
+                    class="flex items-center gap-2 text-brand-600 font-bold text-lg tracking-tight font-display">
                     <div
-                        class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
+                        class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-md shadow-brand-500/20">
                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                 d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -82,30 +69,30 @@
                 <div class="hidden md:flex items-center gap-1">
                     {% if session.get('role') == 'student' %}
                     <a href="{{ url_for('student_dashboard') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Dashboard</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Dashboard</a>
                     <a href="{{ url_for('student_jobs') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Jobs</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Jobs</a>
                     <a href="{{ url_for('student_applications') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Applications</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Applications</a>
                     <a href="{{ url_for('student_profile') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Profile</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Profile</a>
                     {% elif session.get('role') == 'company' %}
                     <a href="{{ url_for('company_dashboard') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Dashboard</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Dashboard</a>
                     <a href="{{ url_for('post_job') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Post
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Post
                         Job</a>
                     {% elif session.get('role') == 'admin' %}
                     <a href="{{ url_for('admin_dashboard') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Dashboard</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Dashboard</a>
                     <a href="{{ url_for('admin_students') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Students</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Students</a>
                     <a href="{{ url_for('admin_companies') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Companies</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Companies</a>
                     <a href="{{ url_for('admin_jobs') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Jobs</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Jobs</a>
                     <a href="{{ url_for('admin_reports') }}"
-                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-surface-100">Reports</a>
+                        class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Reports</a>
                     {% endif %}
                 </div>
 
@@ -113,7 +100,7 @@
                 <div class="flex items-center gap-3">
                     {% if session.get('user_id') %}
                     <span class="hidden sm:inline text-sm text-surface-400 font-medium">{{ session.name }}</span>
-                    <a href="{{ url_for('logout') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium
+                    <a href="{{ url_for('logout') }}" class="btn-press inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium
                           text-red-600 bg-red-50 hover:bg-red-100 border border-red-100
                           transition-colors duration-150">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,33 +114,34 @@
             </div>
         </div>
 
-        <!-- Mobile menu (simple) -->
+        <!-- Mobile menu -->
         <div class="md:hidden border-t border-surface-200 px-4 py-2 flex flex-wrap gap-1">
             {% if session.get('role') == 'student' %}
             <a href="{{ url_for('student_dashboard') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Dashboard</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Dashboard</a>
             <a href="{{ url_for('student_jobs') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Jobs</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Jobs</a>
             <a href="{{ url_for('student_applications') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Applications</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Applications</a>
             <a href="{{ url_for('student_profile') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Profile</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Profile</a>
             {% elif session.get('role') == 'company' %}
             <a href="{{ url_for('company_dashboard') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Dashboard</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Dashboard</a>
             <a href="{{ url_for('post_job') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Post Job</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Post
+                Job</a>
             {% elif session.get('role') == 'admin' %}
             <a href="{{ url_for('admin_dashboard') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Dashboard</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Dashboard</a>
             <a href="{{ url_for('admin_students') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Students</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Students</a>
             <a href="{{ url_for('admin_companies') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Companies</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Companies</a>
             <a href="{{ url_for('admin_jobs') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Jobs</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Jobs</a>
             <a href="{{ url_for('admin_reports') }}"
-                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-surface-100">Reports</a>
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Reports</a>
             {% endif %}
         </div>
     </nav>
@@ -165,11 +153,11 @@
     {% if messages %}
     <div class="max-w-4xl mx-auto px-4 pt-4 space-y-2">
         {% for category, message in messages %}
-        <div class="flex items-center gap-2 text-sm px-4 py-3 rounded-xl
+        <div class="flash-message flex items-center gap-2 text-sm px-4 py-3 rounded-xl
         {% if category == 'danger' %}bg-red-50 text-red-700 border border-red-100
         {% elif category == 'success' %}bg-emerald-50 text-emerald-700 border border-emerald-100
         {% elif category == 'warning' %}bg-amber-50 text-amber-700 border border-amber-100
-        {% else %}bg-blue-50 text-blue-700 border border-blue-100{% endif %}">
+        {% else %}bg-teal-50 text-teal-700 border border-teal-100{% endif %}">
             {{ message }}
         </div>
         {% endfor %}
@@ -178,9 +166,9 @@
     {% endwith %}
 
     <!-- ═══════════════════════════════════════════════════════
-     PAGE CONTENT
+     PAGE CONTENT (with enter animation)
      ═══════════════════════════════════════════════════════ -->
-    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+    <main class="page-enter flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
         {% block content %}{% endblock %}
     </main>
 
@@ -191,6 +179,39 @@
         <p class="text-xs text-surface-400">&copy; 2024 PlaceMe &mdash; Placement Management System | DBMS Project</p>
     </footer>
 
+    <!-- Route Transition Script (CSS-driven) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Intercept internal link clicks for smooth page exit
+            document.querySelectorAll('a[href]').forEach(function (link) {
+                // Only intercept internal same-origin links
+                if (link.hostname === window.location.hostname
+                    && !link.getAttribute('href').startsWith('#')
+                    && !link.hasAttribute('target')
+                    && !link.closest('form')) {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var href = link.getAttribute('href');
+                        var main = document.querySelector('main');
+                        if (main) {
+                            main.classList.remove('page-enter');
+                            main.classList.add('page-exit');
+                            setTimeout(function () {
+                                window.location.href = href;
+                            }, 220);
+                        } else {
+                            window.location.href = href;
+                        }
+                    });
+                }
+            });
+
+            // Add btn-press to all submit buttons
+            document.querySelectorAll('button[type="submit"]').forEach(function (btn) {
+                btn.classList.add('btn-press');
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -2,34 +2,66 @@
 {% block title %}Reports – PlaceMe{% endblock %}
 {% block content %}
 
-<div class="mb-6">
-    <h1 class="text-2xl font-bold text-gray-900">Placement Reports</h1>
+<div class="mb-6 animate-fade-in">
+    <h1 class="text-2xl font-bold text-gray-900 font-display">Placement Reports</h1>
     <p class="text-sm text-surface-400 mt-0.5">Analytics on placement performance</p>
 </div>
 
 <!-- Stat cards -->
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-    <div class="bg-white rounded-2xl p-5 shadow-sm border border-surface-200/60 hover:shadow-md transition-shadow">
-        <div class="text-3xl font-bold text-gray-800">{{ total_students }}</div>
-        <div class="text-xs font-medium text-surface-400 uppercase tracking-wider mt-1">Total Students</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 stagger-children">
+    <div class="card-hover stat-hover bg-white rounded-2xl p-5 shadow-sm border border-surface-200/60">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197" />
+                </svg>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-gray-800">{{ total_students }}</div>
+                <div class="text-xs font-medium text-surface-400 uppercase tracking-wider mt-1">Total Students</div>
+            </div>
+        </div>
     </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm border border-surface-200/60 hover:shadow-md transition-shadow">
-        <div class="text-3xl font-bold text-emerald-600">{{ placed_students }}</div>
-        <div class="text-xs font-medium text-surface-400 uppercase tracking-wider mt-1">Placed</div>
+    <div class="card-hover stat-hover bg-white rounded-2xl p-5 shadow-sm border border-surface-200/60">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-emerald-600">{{ placed_students }}</div>
+                <div class="text-xs font-medium text-surface-400 uppercase tracking-wider mt-1">Placed</div>
+            </div>
+        </div>
     </div>
-    <div class="bg-white rounded-2xl p-5 shadow-sm border border-surface-200/60 hover:shadow-md transition-shadow">
-        <div class="text-3xl font-bold text-brand-600">{{ placement_pct }}%</div>
-        <div class="text-xs font-medium text-surface-400 uppercase tracking-wider mt-1">Placement Rate</div>
-        <div class="w-full bg-surface-100 rounded-full h-1.5 mt-3">
-            <div class="bg-brand-500 h-1.5 rounded-full transition-all" style="width: {{ placement_pct }}%"></div>
+    <div class="card-hover stat-hover bg-white rounded-2xl p-5 shadow-sm border border-surface-200/60">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-brand-600">{{ placement_pct }}%</div>
+                <div class="text-xs font-medium text-surface-400 uppercase tracking-wider mt-1">Placement Rate</div>
+                <div class="w-full bg-surface-100 rounded-full h-1.5 mt-3">
+                    <div class="bg-gradient-to-r from-brand-400 to-brand-600 h-1.5 rounded-full transition-all duration-1000"
+                        style="width: {{ placement_pct }}%"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Company-wise -->
-<div class="bg-white rounded-2xl shadow-sm border border-surface-200/60 overflow-hidden mb-6">
+<div class="bg-white rounded-2xl shadow-sm border border-surface-200/60 overflow-hidden mb-6 animate-slide-up"
+    style="animation-delay: 0.1s;">
     <div class="px-5 py-4 border-b border-surface-100">
-        <h2 class="text-base font-semibold text-gray-800">Company-wise Placements</h2>
+        <h2 class="text-base font-semibold text-gray-800 font-display">Company-wise Placements</h2>
     </div>
     {% if company_stats %}
     <div class="overflow-x-auto">
@@ -42,7 +74,7 @@
             </thead>
             <tbody class="divide-y divide-surface-100">
                 {% for c in company_stats %}
-                <tr class="hover:bg-surface-50/50 transition-colors">
+                <tr class="table-row-animate">
                     <td class="px-5 py-3 font-medium text-gray-800">{{ c.name }}</td>
                     <td class="px-5 py-3"><span
                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-50 text-brand-700">{{
@@ -58,9 +90,10 @@
 </div>
 
 <!-- Branch-wise -->
-<div class="bg-white rounded-2xl shadow-sm border border-surface-200/60 overflow-hidden">
+<div class="bg-white rounded-2xl shadow-sm border border-surface-200/60 overflow-hidden animate-slide-up"
+    style="animation-delay: 0.2s;">
     <div class="px-5 py-4 border-b border-surface-100">
-        <h2 class="text-base font-semibold text-gray-800">Branch-wise Placements</h2>
+        <h2 class="text-base font-semibold text-gray-800 font-display">Branch-wise Placements</h2>
     </div>
     {% if branch_stats %}
     <div class="overflow-x-auto">
@@ -73,7 +106,7 @@
             </thead>
             <tbody class="divide-y divide-surface-100">
                 {% for b in branch_stats %}
-                <tr class="hover:bg-surface-50/50 transition-colors">
+                <tr class="table-row-animate">
                     <td class="px-5 py-3 font-medium text-gray-800">{{ b.branch }}</td>
                     <td class="px-5 py-3"><span
                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">{{
