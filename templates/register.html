@@ -156,6 +156,10 @@
         <!-- Glass card with CSS-only tabs -->
         <div class="glass rounded-2xl shadow-xl shadow-black/[0.03] p-8">
 
+            <!-- Hidden radios for CSS-only tabs (must be before all sibling elements) -->
+            <input type="radio" id="studentTab" name="tabSwitch" class="sr-only" checked>
+            <input type="radio" id="companyTab" name="tabSwitch" class="sr-only">
+
             <!-- ── Flash Messages ── -->
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -171,10 +175,6 @@
             </div>
             {% endif %}
             {% endwith %}
-
-            <!-- Hidden radios for CSS-only tabs -->
-            <input type="radio" id="studentTab" name="tabSwitch" class="sr-only" checked>
-            <input type="radio" id="companyTab" name="tabSwitch" class="sr-only">
 
             <!-- Tab navigation -->
             <div class="tab-nav grid grid-cols-2 gap-2 p-1 bg-surface-100 rounded-xl mb-6">
@@ -261,7 +261,7 @@
                 </div>
 
                 <!-- ── Company Registration ── -->
-                <div class="panel-company" style="display:none;">
+                <div class="panel-company">
                     <form method="POST" action="{{ url_for('register') }}" class="space-y-4">
                         <input type="hidden" name="role" value="company">
 
