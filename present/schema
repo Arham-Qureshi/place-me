@@ -1,0 +1,23 @@
+DBMS/
+├── app.py                  # Flask app (all routes)
+├── db_config.py            # MySQL connection config  
+├── schema.sql              # Full database schema
+├── static/css/style.css    # University-portal theme
+└── templates/
+    ├── base.html               # Shared layout (navbar, footer)
+    ├── index.html              # Login page
+    ├── register.html           # Student/Company registration
+    ├── student_dashboard.html  # Stats + recent jobs
+    ├── student_jobs.html       # Job cards + Apply
+    ├── student_applications.html # Application tracking
+    ├── student_profile.html    # Edit profile
+    ├── company_dashboard.html  # Posted jobs overview
+    ├── post_job.html           # New job form
+    ├── view_applicants.html    # Select/Reject applicants
+    ├── admin_dashboard.html    # Stats cards
+    ├── admin_students.html     # Student list + search
+    ├── admin_companies.html    # Company list
+    ├── admin_jobs.html         # Manage/delete jobs
+    └── admin_reports.html      # Placement analytics
+
+

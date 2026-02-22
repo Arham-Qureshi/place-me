@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Manage Jobs – PlaceMe{% endblock %}
+{% block content %}
+
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-900">All Placement Drives</h1>
+    <p class="text-sm text-surface-400 mt-0.5">Manage and monitor job postings</p>
+</div>
+
+<div class="bg-white rounded-2xl shadow-sm border border-surface-200/60 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="bg-surface-50">
+                <tr class="text-left text-xs font-semibold text-surface-400 uppercase tracking-wider">
+                    <th class="px-5 py-3">#</th>
+                    <th class="px-5 py-3">Company</th>
+                    <th class="px-5 py-3">Role</th>
+                    <th class="px-5 py-3">Package</th>
+                    <th class="px-5 py-3">Min CGPA</th>
+                    <th class="px-5 py-3">Deadline</th>
+                    <th class="px-5 py-3">Status</th>
+                    <th class="px-5 py-3">Action</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-100">
+                {% for j in jobs %}
+                <tr class="hover:bg-surface-50/50 transition-colors">
+                    <td class="px-5 py-3 text-gray-500">{{ loop.index }}</td>
+                    <td class="px-5 py-3 font-medium text-gray-800">{{ j.company_name }}</td>
+                    <td class="px-5 py-3 text-gray-600">{{ j.job_role }}</td>
+                    <td class="px-5 py-3"><span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">₹{{
+                            j.package }} LPA</span></td>
+                    <td class="px-5 py-3 text-gray-600">{{ j.eligibility_cgpa }}</td>
+                    <td class="px-5 py-3 text-gray-500">{{ j.deadline }}</td>
+                    <td class="px-5 py-3">
+                        {% if j.status == 'Active' %}
+                        <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">Active</span>
+                        {% else %}
+                        <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-surface-100 text-surface-400">Closed</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-5 py-3">
+                        <a href="{{ url_for('admin_delete_job', job_id=j.job_id) }}"
+                            onclick="return confirm('Delete this job drive?');"
+                            class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-red-50 text-red-500 hover:bg-red-100 transition-colors"
+                            title="Delete">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8" class="px-5 py-10 text-center text-surface-400 text-sm">No jobs found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
