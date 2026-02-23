@@ -39,7 +39,7 @@ def index():
         elif role == 'company':
             return redirect(url_for('company_dashboard'))
         elif role == 'admin':
-            return redirect(url_for('admin_dashboard'))
+            return redirect(url_f   or('admin_dashboard'))
     return render_template('index.html')
 
 
