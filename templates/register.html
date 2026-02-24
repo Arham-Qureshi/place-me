@@ -88,12 +88,8 @@
             <p class="text-sm text-surface-400 mt-1 font-medium">Join the placement portal</p>
         </div>
 
-        <!-- Glass card with CSS-only tabs -->
+        <!-- Glass card with JS-driven tabs -->
         <div class="glass rounded-2xl shadow-xl shadow-black/[0.03] p-8">
-
-            <!-- Hidden radios for CSS-only tabs (must be before all sibling elements) -->
-            <input type="radio" id="studentTab" name="tabSwitch" class="sr-only" checked>
-            <input type="radio" id="companyTab" name="tabSwitch" class="sr-only">
 
             <!-- ── Flash Messages ── -->
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -113,14 +109,14 @@
 
             <!-- Tab navigation -->
             <div class="tab-nav grid grid-cols-2 gap-2 p-1 bg-surface-100 rounded-xl mb-6">
-                <label for="studentTab"
-                    class="label-student text-center py-2.5 rounded-lg text-sm font-semibold text-surface-400 cursor-pointer transition-all duration-200">
+                <div id="tabStudent"
+                    class="label-student tab-label-active text-center py-2.5 rounded-lg text-sm font-semibold text-surface-400 cursor-pointer transition-all duration-200">
                     Student
-                </label>
-                <label for="companyTab"
+                </div>
+                <div id="tabCompany"
                     class="label-company text-center py-2.5 rounded-lg text-sm font-semibold text-surface-400 cursor-pointer transition-all duration-200">
                     Company
-                </label>
+                </div>
             </div>
 
             <!-- ═══ Tab Panels ═══ -->
@@ -196,7 +192,7 @@
                 </div>
 
                 <!-- ── Company Registration ── -->
-                <div class="panel-company">
+                <div class="panel-company hidden">
                     <form method="POST" action="{{ url_for('register') }}" class="space-y-4">
                         <input type="hidden" name="role" value="company">
 
@@ -262,6 +258,50 @@
         </p>
     </div>
 
+    <!-- Script for Tab Switching Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabStudent = document.getElementById('tabStudent');
+            const tabCompany = document.getElementById('tabCompany');
+            const panelStudent = document.querySelector('.panel-student');
+            const panelCompany = document.querySelector('.panel-company');
+            const tabPanels = document.querySelector('.tab-panels');
+            let currentTab = 'student';
+
+            function switchTab(newTab) {
+                if (newTab === currentTab) return;
+
+                // Phase 1: Fade out + scale down
+                tabPanels.style.opacity = '0';
+                tabPanels.style.transform = 'scale(0.96)';
+
+                setTimeout(() => {
+                    // Phase 2: Swap panels while invisible
+                    if (newTab === 'student') {
+                        panelCompany.classList.add('hidden');
+                        panelStudent.classList.remove('hidden');
+                        tabStudent.classList.add('tab-label-active');
+                        tabCompany.classList.remove('tab-label-active');
+                    } else {
+                        panelStudent.classList.add('hidden');
+                        panelCompany.classList.remove('hidden');
+                        tabCompany.classList.add('tab-label-active');
+                        tabStudent.classList.remove('tab-label-active');
+                    }
+                    currentTab = newTab;
+
+                    // Phase 3: Fade in + scale up
+                    requestAnimationFrame(() => {
+                        tabPanels.style.opacity = '1';
+                        tabPanels.style.transform = 'scale(1)';
+                    });
+                }, 200);
+            }
+
+            tabStudent.addEventListener('click', () => switchTab('student'));
+            tabCompany.addEventListener('click', () => switchTab('company'));
+        });
+    </script>
 </body>
 
 </html>

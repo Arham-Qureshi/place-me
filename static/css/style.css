@@ -394,51 +394,19 @@ h6 {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   TAB SWITCHING ANIMATION (Register page)
+   TAB SWITCHING ANIMATION (Register page) – JS-driven
    ══════════════════════════════════════════════════════════════ */
 
-/* Panels use opacity + transform for smooth fade/slide */
-.panel-student,
-.panel-company {
-    transition: opacity var(--duration-normal) ease,
-        transform var(--duration-normal) ease;
+/* Tab panels wrapper – animates as a whole */
+.tab-panels {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform-origin: top center;
 }
 
-/* Radio tab toggle logic */
-#studentTab:checked~.tab-panels .panel-student {
-    display: block;
-    opacity: 1;
-    transform: translateX(0);
-}
-
-#studentTab:checked~.tab-panels .panel-company {
-    display: none;
-    opacity: 0;
-    transform: translateX(20px);
-}
-
-#companyTab:checked~.tab-panels .panel-student {
-    display: none;
-    opacity: 0;
-    transform: translateX(-20px);
-}
-
-#companyTab:checked~.tab-panels .panel-company {
-    display: block;
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* Active tab label highlight */
-#studentTab:checked~.tab-nav .label-student {
-    background: white;
-    color: var(--brand-600);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-
-#companyTab:checked~.tab-nav .label-company {
-    background: white;
-    color: var(--brand-600);
+/* Active tab label highlight (applied via JS) */
+.tab-label-active {
+    background: white !important;
+    color: var(--brand-600) !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
