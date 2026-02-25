@@ -21,8 +21,8 @@
         lineOpacityMax: 0.22,    // max line alpha
         particleOpacity: 0.65,
         // brand palette
-        colors: ['#4348ddff', '#6f7f8dffff', '#04f814ff', '#6ee7b7', '#0d9488'],
-        bg: '#f0fdf8',           // very light mint — replaces gradient
+        colors: ['#7a7ba2ff', '#4d0313ff', '#2c432eff', '#a20d75ff', '#649994ff'],
+        bg: '#d9e8e7ff',           // very light mint — replaces gradient
     };
 
     // ── State ─────────────────────────────────────────────────
