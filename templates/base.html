@@ -45,13 +45,10 @@
 
 <body class="bg-surface-50 min-h-screen flex flex-col text-gray-800">
 
-    <!-- ═══════════════════════════════════════════════════════
-     NAVBAR
-     ═══════════════════════════════════════════════════════ -->
+
     <nav class="glass-nav sticky top-0 z-50 animate-slide-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Brand -->
                 <a href="{{ url_for('index') }}"
                     class="flex items-center gap-2 text-brand-600 font-bold text-lg tracking-tight font-display">
                     <div
@@ -65,7 +62,6 @@
                     PlaceMe
                 </a>
 
-                <!-- Nav links -->
                 <div class="hidden md:flex items-center gap-1">
                     {% if session.get('role') == 'student' %}
                     <a href="{{ url_for('student_dashboard') }}"
@@ -96,7 +92,6 @@
                     {% endif %}
                 </div>
 
-                <!-- Right side: user + logout -->
                 <div class="flex items-center gap-3">
                     {% if session.get('user_id') %}
                     <span class="hidden sm:inline text-sm text-surface-400 font-medium">{{ session.name }}</span>
@@ -113,8 +108,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Mobile menu -->
         <div class="md:hidden border-t border-surface-200 px-4 py-2 flex flex-wrap gap-1">
             {% if session.get('role') == 'student' %}
             <a href="{{ url_for('student_dashboard') }}"
@@ -146,9 +139,6 @@
         </div>
     </nav>
 
-    <!-- ═══════════════════════════════════════════════════════
-     FLASH MESSAGES
-     ═══════════════════════════════════════════════════════ -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     <div class="max-w-4xl mx-auto px-4 pt-4 space-y-2">
@@ -165,21 +155,12 @@
     {% endif %}
     {% endwith %}
 
-    <!-- ═══════════════════════════════════════════════════════
-     PAGE CONTENT (with enter animation)
-     ═══════════════════════════════════════════════════════ -->
     <main class="page-enter flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
         {% block content %}{% endblock %}
     </main>
-
-    <!-- ═══════════════════════════════════════════════════════
-     FOOTER
-     ═══════════════════════════════════════════════════════ -->
     <footer class="border-t border-surface-200 bg-white/50 py-4 text-center">
         <p class="text-xs text-surface-400">&copy; 2024 PlaceMe &mdash; Placement Management System | DBMS Project</p>
     </footer>
-
-    <!-- Route Transition Script (CSS-driven) -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Intercept internal link clicks for smooth page exit

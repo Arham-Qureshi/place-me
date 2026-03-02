@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlaceMe – Create Account</title>
 
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -42,27 +41,22 @@
         }
     </script>
 
-    <!-- Google Fonts: Outfit + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- External CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body
     class="min-h-screen flex items-center justify-center relative bg-surface-50 py-8 overflow-x-hidden overflow-y-auto">
 
-    <!-- ═══ Background: Interactive particle canvas ═══ -->
     <canvas id="bg-canvas" class="fixed inset-0 -z-10 w-full h-full"></canvas>
 
-    <!-- ═══ Card ═══ -->
     <div class="w-full max-w-lg mx-4 animate-slide-up">
 
-        <!-- Brand header -->
         <div class="text-center mb-8 animate-fade-in">
             <div
                 class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 shadow-lg shadow-brand-500/25 mb-4">
@@ -78,10 +72,8 @@
             <p class="text-sm text-surface-400 mt-1 font-medium">Join the placement portal</p>
         </div>
 
-        <!-- Glass card with JS-driven tabs -->
         <div class="glass rounded-2xl shadow-xl shadow-black/[0.03] p-8">
 
-            <!-- ── Flash Messages ── -->
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
             <div class="mb-5 space-y-2">
@@ -97,7 +89,6 @@
             {% endif %}
             {% endwith %}
 
-            <!-- Tab navigation -->
             <div class="tab-nav grid grid-cols-2 gap-2 p-1 bg-surface-100 rounded-xl mb-6">
                 <div id="tabStudent"
                     class="label-student tab-label-active text-center py-2.5 rounded-lg text-sm font-semibold text-surface-400 cursor-pointer transition-all duration-200">
@@ -109,10 +100,8 @@
                 </div>
             </div>
 
-            <!-- ═══ Tab Panels ═══ -->
             <div class="tab-panels">
 
-                <!-- ── Student Registration ── -->
                 <div class="panel-student">
                     <form method="POST" action="{{ url_for('register') }}" class="space-y-4">
                         <input type="hidden" name="role" value="student">
@@ -181,7 +170,6 @@
                     </form>
                 </div>
 
-                <!-- ── Company Registration ── -->
                 <div class="panel-company hidden">
                     <form method="POST" action="{{ url_for('register') }}" class="space-y-4">
                         <input type="hidden" name="role" value="company">
@@ -228,14 +216,12 @@
                 </div>
             </div>
 
-            <!-- Divider -->
             <div class="flex items-center gap-3 my-6">
                 <div class="flex-1 h-px bg-surface-200"></div>
                 <span class="text-xs font-medium text-surface-400 uppercase tracking-wider">Already registered?</span>
                 <div class="flex-1 h-px bg-surface-200"></div>
             </div>
 
-            <!-- Login link -->
             <a href="{{ url_for('index') }}" class="btn-press block w-full text-center py-2.5 rounded-xl text-sm font-semibold text-brand-600
                       bg-brand-50 hover:bg-brand-100 border border-brand-100
                       transition-all duration-200 hover:-translate-y-0.5">
@@ -248,9 +234,7 @@
         </p>
     </div>
 
-    <!-- Particle background -->
     <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
-    <!-- Tab switching animation -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const tabStudent = document.getElementById('tabStudent');
@@ -263,12 +247,10 @@
             function switchTab(newTab) {
                 if (newTab === currentTab) return;
 
-                // Phase 1: Fade out + scale down
                 tabPanels.style.opacity = '0';
                 tabPanels.style.transform = 'scale(0.96)';
 
                 setTimeout(() => {
-                    // Phase 2: Swap panels while invisible
                     if (newTab === 'student') {
                         panelCompany.classList.add('hidden');
                         panelStudent.classList.remove('hidden');
@@ -282,7 +264,6 @@
                     }
                     currentTab = newTab;
 
-                    // Phase 3: Fade in + scale up
                     requestAnimationFrame(() => {
                         tabPanels.style.opacity = '1';
                         tabPanels.style.transform = 'scale(1)';
