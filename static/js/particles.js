@@ -1,7 +1,3 @@
-/* ============================================================
-   PlaceMe — Particle Network Background
-   Interactive canvas: drifting particles + mouse repulsion
-   ============================================================ */
 (function () {
     'use strict';
 
@@ -9,7 +5,6 @@
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    // ── Config ────────────────────────────────────────────────
     const CFG = {
         count: 90,               // number of particles
         speed: 0.45,             // max drift speed
@@ -25,17 +20,14 @@
         bg: '#d9e8e7ff',           // very light mint — replaces gradient
     };
 
-    // ── State ─────────────────────────────────────────────────
     let W, H, particles = [];
     const mouse = { x: -9999, y: -9999 };
 
-    // ── Resize ────────────────────────────────────────────────
     function resize() {
         W = canvas.width = window.innerWidth;
         H = canvas.height = window.innerHeight;
     }
 
-    // ── Particle factory ──────────────────────────────────────
     function createParticle() {
         const angle = Math.random() * Math.PI * 2;
         const speed = (Math.random() * CFG.speed) + 0.1;
@@ -54,7 +46,6 @@
         for (let i = 0; i < CFG.count; i++) particles.push(createParticle());
     }
 
-    // ── Draw helpers ──────────────────────────────────────────
     function drawParticle(p) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -76,7 +67,6 @@
         ctx.globalAlpha = 1;
     }
 
-    // Draw a faint line from nearest particles to cursor
     function drawMouseLines() {
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
@@ -97,9 +87,7 @@
         }
     }
 
-    // ── Update ────────────────────────────────────────────────
     function update(p) {
-        // Mouse repulsion
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -109,7 +97,6 @@
             p.vy += (dy / dist) * force * CFG.repelStrength * 0.05;
         }
 
-        // Dampen velocity so particles don't rocket off screen
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
         const maxSpeed = CFG.speed * 3;
         if (speed > maxSpeed) {
@@ -117,7 +104,6 @@
             p.vy = (p.vy / speed) * maxSpeed;
         }
 
-        // Slow drift back toward natural speed
         const naturalSpeed = 0.3;
         if (speed > naturalSpeed) {
             p.vx *= 0.98;
@@ -127,19 +113,15 @@
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around edges
         if (p.x < -10) p.x = W + 10;
         if (p.x > W + 10) p.x = -10;
         if (p.y < -10) p.y = H + 10;
         if (p.y > H + 10) p.y = -10;
     }
 
-    // ── Main loop ─────────────────────────────────────────────
     function frame() {
         ctx.fillStyle = CFG.bg;
         ctx.fillRect(0, 0, W, H);
-
-        // Draw connections between close particles
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
@@ -151,7 +133,6 @@
 
         drawMouseLines();
 
-        // Draw and update each particle
         for (let i = 0; i < particles.length; i++) {
             update(particles[i]);
             drawParticle(particles[i]);
@@ -160,7 +141,6 @@
         requestAnimationFrame(frame);
     }
 
-    // ── Boot ──────────────────────────────────────────────────
     window.addEventListener('resize', () => { resize(); initParticles(); });
     window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
     window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });

@@ -1,16 +1,6 @@
-/* ============================================================
-   PlaceMe – Tech Emerald Design System
-   Premium Career Portal · External CSS
-   ============================================================ */
-
-/* ── Google Fonts ─────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* ══════════════════════════════════════════════════════════════
-   CSS VARIABLES (Theme: Tech Emerald)
-   ══════════════════════════════════════════════════════════════ */
 :root {
-    /* ── Brand / Emerald ── */
     --brand-50: #ecfdf5;
     --brand-100: #d1fae5;
     --brand-200: #a7f3d0;
@@ -22,34 +12,29 @@
     --brand-800: #065f46;
     --brand-900: #064e3b;
 
-    /* ── Teal Accent ── */
     --teal-50: #f0fdfa;
     --teal-100: #ccfbf1;
     --teal-500: #14b8a6;
     --teal-600: #0d9488;
     --teal-700: #0f766e;
 
-    /* ── Amber Accent ── */
     --amber-50: #fffbeb;
     --amber-100: #fef3c7;
     --amber-500: #f59e0b;
     --amber-600: #d97706;
     --amber-700: #b45309;
 
-    /* ── Surfaces ── */
     --surface-50: #f8faf9;
     --surface-100: #f1f5f3;
     --surface-200: #e2e8e4;
     --surface-300: #cbd5cf;
     --surface-400: #8a9a90;
 
-    /* ── Text ── */
     --text-primary: #1e293b;
     --text-secondary: #475569;
     --text-muted: #64748b;
     --text-faint: #94a3b8;
 
-    /* ── Misc ── */
     --card-bg: #ffffff;
     --body-bg: var(--surface-50);
     --border-color: #e2e8e0;
@@ -61,15 +46,11 @@
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
     --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.10);
 
-    /* ── Transition Durations ── */
     --duration-fast: 150ms;
     --duration-normal: 250ms;
     --duration-slow: 400ms;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   RESET & BASE
-   ══════════════════════════════════════════════════════════════ */
 *,
 *::before,
 *::after {
@@ -98,9 +79,6 @@ h6 {
     font-family: 'Outfit', 'Inter', system-ui, sans-serif;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   GLASSMORPHISM
-   ══════════════════════════════════════════════════════════════ */
 .glass {
     background: rgba(255, 255, 255, 0.68);
     backdrop-filter: blur(24px) saturate(180%);
@@ -115,9 +93,6 @@ h6 {
     border-bottom: 1px solid rgba(226, 232, 224, 0.6);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   FLOATING ORBS (Background decoration)
-   ══════════════════════════════════════════════════════════════ */
 .orb {
     position: absolute;
     border-radius: 50%;
@@ -126,9 +101,6 @@ h6 {
     pointer-events: none;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   SOFT INPUT STYLE
-   ══════════════════════════════════════════════════════════════ */
 .input-soft {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
     transition: all var(--duration-normal) ease;
@@ -141,11 +113,6 @@ h6 {
     border-color: var(--brand-400) !important;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   BUTTON EFFECTS
-   ══════════════════════════════════════════════════════════════ */
-
-/* Shine sweep on hover */
 .btn-shine {
     position: relative;
     overflow: hidden;
@@ -168,7 +135,6 @@ h6 {
     left: 120%;
 }
 
-/* Button press animation */
 .btn-press {
     transition: all var(--duration-fast) ease;
 }
@@ -178,7 +144,6 @@ h6 {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Loading state for buttons */
 .btn-loading {
     position: relative;
     pointer-events: none;
@@ -200,11 +165,6 @@ h6 {
     animation: spin 0.6s linear infinite;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   KEYFRAME ANIMATIONS
-   ══════════════════════════════════════════════════════════════ */
-
-/* Fade In */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -215,7 +175,6 @@ h6 {
     }
 }
 
-/* Slide Up + Fade */
 @keyframes slideUp {
     from {
         opacity: 0;
@@ -228,7 +187,6 @@ h6 {
     }
 }
 
-/* Slide Down + Fade */
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -241,7 +199,6 @@ h6 {
     }
 }
 
-/* Float (for background orbs) */
 @keyframes float {
 
     0%,
@@ -254,7 +211,6 @@ h6 {
     }
 }
 
-/* Subtle pulse glow */
 @keyframes pulseGlow {
 
     0%,
@@ -267,14 +223,12 @@ h6 {
     }
 }
 
-/* Spin for loading */
 @keyframes spin {
     to {
         transform: rotate(360deg);
     }
 }
 
-/* Scale in */
 @keyframes scaleIn {
     from {
         opacity: 0;
@@ -287,7 +241,6 @@ h6 {
     }
 }
 
-/* Stagger fade — used for row/card lists */
 @keyframes staggerFadeIn {
     from {
         opacity: 0;
@@ -300,7 +253,6 @@ h6 {
     }
 }
 
-/* ── Page Transition: Enter ────────────────────────────────── */
 @keyframes pageEnter {
     from {
         opacity: 0;
@@ -313,7 +265,6 @@ h6 {
     }
 }
 
-/* ── Page Transition: Exit ─────────────────────────────────── */
 @keyframes pageExit {
     from {
         opacity: 1;
@@ -326,9 +277,6 @@ h6 {
     }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   ANIMATION UTILITY CLASSES
-   ══════════════════════════════════════════════════════════════ */
 .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
 }
@@ -353,17 +301,14 @@ h6 {
     animation: pulseGlow 2s ease-in-out infinite;
 }
 
-/* Page enter animation — applied to <main> via base.html */
 .page-enter {
     animation: pageEnter 0.4s ease-out forwards;
 }
 
-/* Page exit class — applied via JS before navigation */
 .page-exit {
     animation: pageExit 0.25s ease-in forwards;
 }
 
-/* Stagger animation for child elements */
 .stagger-children>* {
     opacity: 0;
     animation: staggerFadeIn 0.4s ease-out forwards;
@@ -393,32 +338,22 @@ h6 {
     animation-delay: 0.30s;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   TAB SWITCHING ANIMATION (Register page) – JS-driven
-   ══════════════════════════════════════════════════════════════ */
-
-/* Tab panels wrapper – animates as a whole */
 .tab-panels {
     transition: opacity 0.3s ease, transform 0.3s ease;
     transform-origin: top center;
 }
 
-/* Active tab label highlight (applied via JS) */
 .tab-label-active {
     background: white !important;
     color: var(--brand-600) !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-/* Tab label transition */
 .label-student,
 .label-company {
     transition: all var(--duration-normal) ease;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   NAVBAR
-   ══════════════════════════════════════════════════════════════ */
 .nav-link {
     transition: color var(--duration-fast) ease,
         background-color var(--duration-fast) ease;
@@ -430,9 +365,6 @@ h6 {
     font-weight: 600;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   CARDS – Hover Elevation
-   ══════════════════════════════════════════════════════════════ */
 .card-hover {
     transition: transform var(--duration-normal) ease,
         box-shadow var(--duration-normal) ease;
@@ -443,16 +375,12 @@ h6 {
     box-shadow: var(--shadow-lg);
 }
 
-/* Stat card specific glow on hover */
 .stat-hover:hover {
     box-shadow:
         0 4px 16px rgba(16, 185, 129, 0.12),
         0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   TABLES
-   ══════════════════════════════════════════════════════════════ */
 .table-row-animate {
     transition: background-color var(--duration-fast) ease;
 }
@@ -461,24 +389,15 @@ h6 {
     background-color: var(--brand-50);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   FLASH MESSAGES
-   ══════════════════════════════════════════════════════════════ */
 .flash-message {
     animation: slideDown 0.35s ease-out forwards;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   PROGRESS BAR (Reports page)
-   ══════════════════════════════════════════════════════════════ */
 .progress-bar-animated {
     transition: width 1s ease-out;
     animation: pulseGlow 2s ease-in-out infinite;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   BADGES
-   ══════════════════════════════════════════════════════════════ */
 .badge {
     display: inline-flex;
     align-items: center;
@@ -504,9 +423,6 @@ h6 {
     color: var(--teal-700);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   SCROLLBAR (Premium feel)
-   ══════════════════════════════════════════════════════════════ */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -525,25 +441,16 @@ h6 {
     background: var(--surface-400);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   FOCUS RING (Accessibility)
-   ══════════════════════════════════════════════════════════════ */
 :focus-visible {
     outline: 2px solid var(--brand-400);
     outline-offset: 2px;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   SELECTION COLOR
-   ══════════════════════════════════════════════════════════════ */
 ::selection {
     background: var(--brand-200);
     color: var(--brand-900);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   RESPONSIVE UTILITIES
-   ══════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
 
     *,
