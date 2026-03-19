@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}PlaceMe{% endblock %}</title>
-
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -31,21 +28,14 @@
             }
         }
     </script>
-
-    <!-- Google Fonts: Outfit + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
-    <!-- External CSS (Tech Emerald Theme) -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body class="bg-surface-50 min-h-screen flex flex-col text-gray-800">
-
-
     <nav class="glass-nav sticky top-0 z-50 animate-slide-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -61,7 +51,6 @@
                     </div>
                     PlaceMe
                 </a>
-
                 <div class="hidden md:flex items-center gap-1">
                     {% if session.get('role') == 'student' %}
                     <a href="{{ url_for('student_dashboard') }}"
@@ -91,7 +80,6 @@
                         class="nav-link px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-brand-50 hover:text-brand-700">Reports</a>
                     {% endif %}
                 </div>
-
                 <div class="flex items-center gap-3">
                     {% if session.get('user_id') %}
                     <span class="hidden sm:inline text-sm text-surface-400 font-medium">{{ session.name }}</span>
@@ -138,7 +126,6 @@
             {% endif %}
         </div>
     </nav>
-
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     <div class="max-w-4xl mx-auto px-4 pt-4 space-y-2">
@@ -154,7 +141,6 @@
     </div>
     {% endif %}
     {% endwith %}
-
     <main class="page-enter flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
         {% block content %}{% endblock %}
     </main>
@@ -186,7 +172,6 @@
                     });
                 }
             });
-
             // Add btn-press to all submit buttons
             document.querySelectorAll('button[type="submit"]').forEach(function (btn) {
                 btn.classList.add('btn-press');
@@ -194,5 +179,4 @@
         });
     </script>
 </body>
-
 </html>

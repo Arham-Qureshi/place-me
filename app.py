@@ -8,9 +8,6 @@ app = Flask(__name__)
 app.secret_key = 'placement_secret_key_2024'
 
 
-
-
-# ── Helper: login required decorator ────────────────────────
 def login_required(role=None):
     def decorator(f):
         @wraps(f)
@@ -26,9 +23,6 @@ def login_required(role=None):
     return decorator
 
 
-# ══════════════════════════════════════════════════════════════
-#  AUTH ROUTES
-# ══════════════════════════════════════════════════════════════
 
 @app.route('/')
 def index():
@@ -147,22 +141,15 @@ def logout():
     return redirect(url_for('index'))
 
 
-# ══════════════════════════════════════════════════════════════
-#  STUDENT ROUTES
-# ══════════════════════════════════════════════════════════════
-
 @app.route('/student/dashboard')
 @login_required(role='student')
 def student_dashboard():
     db = get_db(); cur = db.cursor(dictionary=True)
     sid = session['user_id']
-    # Count applications
     cur.execute("SELECT COUNT(*) AS cnt FROM Applications WHERE student_id=%s", (sid,))
     app_count = cur.fetchone()['cnt']
-    # Count selected
     cur.execute("SELECT COUNT(*) AS cnt FROM Applications WHERE student_id=%s AND status='Selected'", (sid,))
     sel_count = cur.fetchone()['cnt']
-    # Recent jobs
     cur.execute("""SELECT j.job_id, c.name AS company_name, j.job_role, j.package,
                           j.eligibility_cgpa, j.deadline
                    FROM Jobs j JOIN Companies c ON j.company_id=c.company_id
@@ -184,10 +171,8 @@ def student_jobs():
                    WHERE j.status='Active' AND j.deadline>=CURDATE()
                    ORDER BY j.deadline ASC""")
     jobs = cur.fetchall()
-    # Get student cgpa
     cur.execute("SELECT cgpa FROM Students WHERE student_id=%s", (session['user_id'],))
     student = cur.fetchone()
-    # Already applied jobs
     cur.execute("SELECT job_id FROM Applications WHERE student_id=%s", (session['user_id'],))
     applied_ids = [row['job_id'] for row in cur.fetchall()]
     cur.close(); db.close()
@@ -200,7 +185,6 @@ def student_jobs():
 def student_apply(job_id):
     db = get_db(); cur = db.cursor(dictionary=True)
     sid = session['user_id']
-    # Check eligibility
     cur.execute("SELECT cgpa FROM Students WHERE student_id=%s", (sid,))
     student = cur.fetchone()
     cur.execute("SELECT eligibility_cgpa, deadline, status FROM Jobs WHERE job_id=%s", (job_id,))
@@ -267,11 +251,6 @@ def student_profile():
     cur.close(); db.close()
     return render_template('student_profile.html', student=student)
 
-
-# ══════════════════════════════════════════════════════════════
-#  COMPANY ROUTES
-# ══════════════════════════════════════════════════════════════
-
 @app.route('/company/dashboard')
 @login_required(role='company')
 def company_dashboard():
@@ -279,7 +258,6 @@ def company_dashboard():
     cid = session['user_id']
     cur.execute("SELECT * FROM Jobs WHERE company_id=%s ORDER BY created_at DESC", (cid,))
     jobs = cur.fetchall()
-    # Stats
     cur.execute("SELECT COUNT(*) AS cnt FROM Jobs WHERE company_id=%s", (cid,))
     job_count = cur.fetchone()['cnt']
     cur.execute("""SELECT COUNT(*) AS cnt FROM Applications a
@@ -322,7 +300,6 @@ def post_job():
 @login_required(role='company')
 def view_applicants(job_id):
     db = get_db(); cur = db.cursor(dictionary=True)
-    # Verify this job belongs to logged‑in company
     cur.execute("SELECT * FROM Jobs WHERE job_id=%s AND company_id=%s",
                 (job_id, session['user_id']))
     job = cur.fetchone()
@@ -349,7 +326,6 @@ def update_app_status(app_id, status):
         flash('Invalid status.', 'danger')
         return redirect(url_for('company_dashboard'))
     db = get_db(); cur = db.cursor(dictionary=True)
-    # Verify ownership
     cur.execute("""SELECT a.job_id FROM Applications a
                    JOIN Jobs j ON a.job_id=j.job_id
                    WHERE a.application_id=%s AND j.company_id=%s""",
@@ -367,11 +343,6 @@ def update_app_status(app_id, status):
     cur.close(); db.close()
     return redirect(url_for('view_applicants', job_id=job_id))
 
-
-# ══════════════════════════════════════════════════════════════
-#  ADMIN ROUTES
-# ══════════════════════════════════════════════════════════════
-
 @app.route('/admin/dashboard')
 @login_required(role='admin')
 def admin_dashboard():
@@ -384,7 +355,6 @@ def admin_dashboard():
     active_jobs = cur.fetchone()['cnt']
     cur.execute("SELECT COUNT(*) AS cnt FROM Applications WHERE status='Selected'")
     placed = cur.fetchone()['cnt']
-    # Branch-wise stats
     cur.execute("""SELECT s.branch, COUNT(a.application_id) AS placed_count
                    FROM Applications a
                    JOIN Students s ON a.student_id=s.student_id
@@ -453,7 +423,6 @@ def admin_delete_job(job_id):
 @login_required(role='admin')
 def admin_reports():
     db = get_db(); cur = db.cursor(dictionary=True)
-    # Company-wise placement
     cur.execute("""SELECT c.name, COUNT(a.application_id) AS total_hired
                    FROM Applications a
                    JOIN Jobs j ON a.job_id=j.job_id
@@ -461,14 +430,12 @@ def admin_reports():
                    WHERE a.status='Selected'
                    GROUP BY c.name ORDER BY total_hired DESC""")
     company_stats = cur.fetchall()
-    # Branch-wise placement
     cur.execute("""SELECT s.branch, COUNT(a.application_id) AS placed
                    FROM Applications a
                    JOIN Students s ON a.student_id=s.student_id
                    WHERE a.status='Selected'
                    GROUP BY s.branch ORDER BY placed DESC""")
     branch_stats = cur.fetchall()
-    # Overall
     cur.execute("SELECT COUNT(*) AS cnt FROM Students")
     total_students = cur.fetchone()['cnt']
     cur.execute("SELECT COUNT(DISTINCT student_id) AS cnt FROM Applications WHERE status='Selected'")
@@ -481,9 +448,6 @@ def admin_reports():
                            total_students=total_students,
                            placed_students=placed_students,
                            placement_pct=pct)
-
-
-# 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
    

@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Available Jobs – PlaceMe{% endblock %}
 {% block content %}
-
 <div class="mb-6 animate-fade-in">
     <h1 class="text-2xl font-bold text-gray-900 font-display">Placement Drives</h1>
     <p class="text-sm text-surface-400 mt-0.5">Apply to open positions matching your profile</p>
 </div>
-
 {% if jobs %}
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children">
     {% for j in jobs %}
@@ -80,5 +78,4 @@
     <p class="text-sm">No active placement drives at the moment.</p>
 </div>
 {% endif %}
-
 {% endblock %}
