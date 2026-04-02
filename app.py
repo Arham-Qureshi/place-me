@@ -5,7 +5,7 @@ from functools import wraps
 from db_config import get_db
 
 app = Flask(__name__)
-app.secret_key = 'placement_secret_key_2024'
+app.secret_key = ''
 
 
 def login_required(role=None):
