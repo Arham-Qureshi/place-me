@@ -1,13 +1,9 @@
-"""
-Database configuration and connection helper for Placement Management System.
-Uses mysql-connector-python.
-"""
 import mysql.connector
 from mysql.connector import Error
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': '@Aq9191819121',
+    'password': 'your_password',
     'database': 'placement_system',
 }
 def get_db():
